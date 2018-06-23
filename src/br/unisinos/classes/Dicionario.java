@@ -1,3 +1,9 @@
+/*
+ * Estruturas avançadas de dados - 2018/1 - Unisinos
+ * Prof. Marcio Garcia Martins
+ * Projeto: Tradutor inglês-Português utilizando uma árvore AVL
+ * Classe: Dicionário que vai armazenar a palavra em inglês e as suas traduções em português
+ */
 package br.unisinos.classes;
 
 import java.util.ArrayList;

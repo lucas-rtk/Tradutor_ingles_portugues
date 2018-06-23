@@ -1,3 +1,9 @@
+/*
+ * Estruturas avançadas de dados - 2018/1 - Unisinos
+ * Prof. Marcio Garcia Martins
+ * Projeto: Tradutor inglês-Português utilizando uma árvore AVL
+ * Classe: Classe principial do aplicativo tradutor
+ */
 package br.unisinos.classes;
 
 import java.util.List;
@@ -37,5 +43,35 @@ public class Tradutor {
 	
 	protected void carregaDicionario(String arq) {
 		// TODO Implementar a leitura do dicionário em arquivo
+	}
+	
+	
+	public static void main(String args[]) {
+		Tela.imprimirCabecalho();
+		Tela.imprimirMenu();
+		
+		int opcao = 0;
+		do {
+			Tela.ImprimirPergunta();
+			opcao = Teclado.lerInteiro();
+			
+			switch(opcao) {
+				case 1:
+					//TODO Tratar importação do arquivo
+					break;
+				case 2:
+					//TODO Fazer salvamento do arquivo
+					break;
+				case 3:
+					//TODO Realizar a pesquisa da palavra
+					break;
+				case 4:
+					//Usuário quer fechar a aplicação
+					break;
+				default:
+					//Usuário informou um valor inválido
+					Tela.ImprimirMensagemOpcaoErrada();
+			}
+		}while(opcao != 4);
 	}
 }
