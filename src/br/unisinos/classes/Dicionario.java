@@ -14,6 +14,7 @@ public class Dicionario implements Comparable<Dicionario> {
 	protected String palavra;
 	protected List<String> definicoes;
 	
+	//Construtor da classe
 	public Dicionario(String palavra, List<String> definicoes) {
 		this.palavra = palavra;
 		
@@ -25,14 +26,15 @@ public class Dicionario implements Comparable<Dicionario> {
 			//Cria uma lista de definições vazia
 			this.definicoes = new ArrayList<String>();
 	}
-
+	
+	//Implementação da interface Comparable<>, verificando qual palavra dos dois dicionário é a maior (sem considerar letras maiúsculas e minúsculas)
 	public int compareTo(Dicionario o) {		
-		//Implementa a interface Comparable fazendo a comparação das palavras de forma case-insensitive
 		return this.palavra.compareToIgnoreCase(((Dicionario)o).palavra);
 	}
 	
+	//Implementação do método ToString() para a classe
 	public String toString() {
-		//Devolve como valor padrão ao "ToStrin()" da classe a palavra definidas
+		//Devolve como valor padrão ao "ToString()" da classe a palavra definida
 		return this.palavra;
 	}
 }

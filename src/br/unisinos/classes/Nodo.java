@@ -14,14 +14,17 @@ public class Nodo<T> {
 	private Nodo<T> direito;
 	private int fator;
 
+	//Construtor básico da classe
 	public Nodo() {
 		this.esquerdo = this.direito = this.pai = null;
 	}
 
+	//Construtor apenas com o valor do nodo
 	public Nodo(T valor) {
 		this(valor, null, null);
 	}
 
+	//Construtor completo
 	public Nodo(T valor, Nodo<T> esquerdo, Nodo<T> direito) {
 		this.esquerdo = esquerdo;
 		this.direito = direito;
@@ -29,41 +32,62 @@ public class Nodo<T> {
 		this.fator = 0;
 	}
 
+	//Devolve o valor do nodo
 	public T getValor() {
 		return this.valor;
 	}
 
+	//Define um valor para o nodo
 	public void setValor(T valor) {
 		this.valor = valor;
 	}
 
-	public Nodo<T> getEsquerdo() { return this.esquerdo; }
+	//Devolve o filho à esquerda do nodo
+	public Nodo<T> getEsquerdo() { 
+		return this.esquerdo; 
+	}
 
+	//Define o filho á esquerda do nodo
 	public void setEsquerdo(Nodo<T> nodo) {
 		this.esquerdo = nodo;
 
+		//Se o nodo do parâmetro não é nulo, define este como o nodo pai dele
 		if (nodo != null)
 			nodo.setPai(this);
 	}
 
-	public Nodo<T> getDireito() { return this.direito; }
+	//Devolve o filho à direita do nodo
+	public Nodo<T> getDireito() { 
+		return this.direito; 
+	}
 
+	//Define o filho á direita do nodo
 	public void setDireito(Nodo<T> nodo) {
 		this.direito = nodo;
 
+		//Se o nodo do parâmetro não é nulo, define este como o nodo pai dele
 		if (nodo != null)
 			nodo.setPai(this);
 	}
 	
-	public int getFator() { return this.fator; }
+	//Devolve o fator de balanceamento do nodo
+	public int getFator() { 
+		return this.fator; 
+	}
 	
-	public Nodo<T> getPai() { return this.pai; }	
+	//Devolve o pai do nodo
+	public Nodo<T> getPai() { 
+		return this.pai; 
+	}	
 	
+	//Define um pai para o nodo
 	public void setPai(Nodo<T> nodo) {
 		this.pai = nodo;
 	}
 		
+	//Calcula o seu fator de balanceamento e o do seus filhos
 	public void calcularBalanceamento() {
+		//Subtrai a altura dos filhos à esquerda pela altura dos filhos à direita para montar o fator de balanceamento
 		this.fator = calcularAltura(this.esquerdo) - calcularAltura(this.direito);
 
 		//Calcula o fator de balanceamento dos filhos
@@ -74,7 +98,9 @@ public class Nodo<T> {
 			this.direito.calcularBalanceamento();
 	}
 
+	//Verifica a altura do nodo de forma recursiva, somando sempre 1 + altura dos filhos
 	private int calcularAltura(Nodo<T> nodo) {
+		//Se não existem mais filhos, retorna zero
 		if (nodo == null)
 			return 0;
 

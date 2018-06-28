@@ -14,16 +14,27 @@ public class ArvoreAVL<T extends Comparable<T>> {
 
 	private Nodo<T> raiz;
 	
+	//Construtor da classe
 	public ArvoreAVL() {
 		limpar();
 	}
 	
-	public void limpar() { this.raiz = null; }	
+	//Método para limpar a estrutura da árvore
+	public void limpar() { 
+		this.raiz = null; 
+	}	
 	
-	public boolean estaVazia() { return raiz == null; }	
+	//Verifica se a árvore está vazia
+	public boolean estaVazia() { 
+		return raiz == null; 
+	}	
 	
-	public Nodo<T> getRaiz() { return this.raiz; }
+	//Devolve o nodo raiz da árvore
+	public Nodo<T> getRaiz() { 
+		return this.raiz;
+	}
 	
+	//Pesquisa se o valor já existe na árvore, devolvendo o nodo que contém ele
 	private Nodo<T> pesquisar(Nodo<T> nodo, T valor) {
 		//Se o nodo passado é nulo ou valor é igual ao valor do nodo, retorna ele mesmo
 		if ((nodo == null) || valor.compareTo(nodo.getValor()) == 0)
@@ -35,10 +46,12 @@ public class ArvoreAVL<T extends Comparable<T>> {
 			return pesquisar(nodo.getEsquerdo(), valor);			
 	}	
 	
+	//Versão externa do método de pesquisa, que chama o método interno iniciando pela raiz
 	public Nodo<T> pesquisar(T valor) { 
 		return pesquisar(this.raiz, valor); 
 	}
 	
+	//Insere um valor T na árvore, desde de que ele não exista ainda. Recalcula os fatores de balanceamento e faz as rotações necessárias
 	public boolean inserir(T valor) {
 		Nodo<T> tmp = this.raiz;
 		Nodo<T> pai = null;
@@ -73,6 +86,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		return true;			
 	}
 	
+	//Verifica se um nodo da árvore está desbalanceado, conforme o seu fator de balanceamento
 	private void verificarBalanceamento(Nodo<T> nodo) {
 		//Se o nodo passado é nulo (última verificação foi feita na raiz), encerra a verificação
 		if (nodo == null)
@@ -86,8 +100,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 			//Se o filho à esquerda também está pendendo para a esquerda, faz uma rotação simples à direita
 			if (nodo.getEsquerdo().getFator() > 0)
 				rotacaoSimplesDireita(nodo);
-			//Se o filho à esquerda está pendendo para a direita, faz uma rotação dupla à direita
-			else
+			else //Se o filho à esquerda está pendendo para a direita, faz uma rotação dupla à direita
 				rotacaoDuplaDireita(nodo);
 
 			//Marca que houve alteração na árvore
@@ -98,8 +111,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 			//Se o filho à direita também está pendendo para a dirieta, faz uma rotação simples à esquerda
 			if (nodo.getDireito().getFator() < 0)
 				rotacaoSimplesEsquerda(nodo);
-			//Se o filho à direita está pendendo para a esquerda, faz uma rotação dupla à esquerda
-			else
+			else //Se o filho à direita está pendendo para a esquerda, faz uma rotação dupla à esquerda
 				rotacaoDuplaEsquerda(nodo);
 
 			//Marca que houve alteração na árvore
@@ -114,6 +126,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		verificarBalanceamento(nodo.getPai());
 	}
 
+	//Faz uma rotação simples à direita no nodo
 	private void rotacaoSimplesDireita(Nodo<T> nodoPai) {
 		//Guarda o nodo que será rotacionado numa variável temporária
 		Nodo<T> temp = nodoPai.getEsquerdo();
@@ -145,6 +158,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		}
 	}
 
+	//Faz uma rotação simples à esquerda no nodo
 	private void rotacaoSimplesEsquerda(Nodo<T> nodoPai) {
 		//Guarda o nodo que será rotacionado numa variável temporária
 		Nodo<T> temp = nodoPai.getDireito();
@@ -174,6 +188,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		}
 	}
 
+	//Faz uma rotação dupla à direita
 	private void rotacaoDuplaDireita(Nodo<T> nodoPai) {
 		//Faz primeiro uma rotação simples à esquerda no nodo à esquerda do que será rotacionado
 		rotacaoSimplesEsquerda(nodoPai.getEsquerdo());
@@ -181,6 +196,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		rotacaoSimplesDireita(nodoPai);
 	}
 
+	//Faz uma rotação dupla à esquerda
 	private void rotacaoDuplaEsquerda(Nodo<T> nodoPai) {
 		//Faz primeiro uma rotação simples à direita no nodo à direita do que será rotacionado
 		rotacaoSimplesDireita(nodoPai.getDireito());
@@ -188,6 +204,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		rotacaoSimplesEsquerda(nodoPai);
 	}
 
+	//remove um valor da árvore
 	public void excluir(T valor) {
 		//Pesquisa o nodo que possui o valor a ser excluído da árvore
 		Nodo<T> temp = pesquisar(valor);
@@ -236,6 +253,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 		}			
 	}
 	
+	//Obtém o menor valor à esquerda de um nodo. Se ele não tiver filhos à esquerda, ele é devolvido como sendo o menor
 	private T getMenorValor(Nodo<T> nodo) {
 		//Se o nodo atual não tem mais filhos à esquerda
 		if (nodo.getEsquerdo() == null)
@@ -246,6 +264,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 			return getMenorValor(nodo.getEsquerdo());
 	}
 	
+	//Devolve uma string com os valores da árvore na seguinte ordem: Pai - Esquerda - Direita
 	private String preOrdem(Nodo<T> nodo) {
 		//Se o nodo não possui valor
 		if (nodo == null)
@@ -256,6 +275,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 			return nodo.getValor() +  " " + preOrdem(nodo.getEsquerdo()) + preOrdem(nodo.getDireito());
 	}
 	
+	//Devolve uma string com os valores da árvore na seguinte ordem: Esquerda - Pai - Direita
 	private String emOrdem(Nodo<T> nodo) {
 		//Se o nodo não possui valor
 		if (nodo == null)
@@ -266,6 +286,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 			return emOrdem(nodo.getEsquerdo()) + nodo.getValor() + " " + emOrdem(nodo.getDireito());
 	}
 	
+	//Devolve uma string com os valores da árvore na seguinte ordem: Esquerda - Direita - Pai
 	private String posOrdem(Nodo<T> nodo) {
 		//Se o nodo não possui valor
 		if (nodo == null)
@@ -276,6 +297,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
 			return posOrdem(nodo.getEsquerdo()) + posOrdem(nodo.getDireito()) + nodo.getValor() + " ";
 	}	
 	
+	//Implementação do método ToString para a classe, devolvendo uma String conforme o tipo de ordenação escolhido
 	public String toString(TipoOrdenacao ordenacao) {
 		//Conforme o parâmetro recebido, chama o método privado adequado para imprimir os valores da árvore
 		switch (ordenacao) {
