@@ -89,6 +89,14 @@ public class Console {
 		System.out.print(msg);
 		return lerChar();
 	}
+	
+	public static void limparConsole(){
+		try {
+			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+		} catch (InterruptedException | IOException ex) {
+			ex.printStackTrace();
+		}
+	}	
 
 	public static void imprimirCabecalho() {
 		System.out.println("----------------------------------------------------");
@@ -112,5 +120,9 @@ public class Console {
 	public static void ImprimirMensagemOpcaoErrada() {
 		System.out.println("Opção inválida!");
 		System.out.println("");
+	}
+	
+	public static void imprimirMensagemEnterParaContinuar() {
+		Console.lerString("Pressione <ENTER> para continuar;");
 	}
 }
