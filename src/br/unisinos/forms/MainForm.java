@@ -106,8 +106,14 @@ public class MainForm extends BaseForm {
 		    public void handleEvent(Event event)
 		    {
 		    	try {
-		    		//Mostra o diálogo de seleção do arquivo e passa o local do arquivo para o tradutor carregar
-					tradutor.carregaDicionario(selecionarArquivoParaCarregar());
+		    		//Mostra o diálogo de seleção do arquivo
+		    		String arquivo = selecionarArquivoParaCarregar();
+		    		//Se o arquivo veio nulo, usuário cancelou a seleção do arquivo
+		    		if (arquivo == null)
+		    			return;
+		    		
+		    		//Passa o local do arquivo para o tradutor carregar
+					tradutor.carregaDicionario(arquivo);
 					Dialogos.mostrarMensagem(formulario, "Carregamento realizado com sucesso!");
 				} 
 		    	//Se aconteceu um erro ao carregar o arquivo
@@ -124,8 +130,14 @@ public class MainForm extends BaseForm {
 		    public void handleEvent(Event event)
 		    {
 		    	try {
-		    		//Mostra o diálogo de seleção do local de gravação e passa para o tradutor descarregar o dicionário
-		    		tradutor.salvaDicionario(selecionarArquivoParaSalvar());
+		    		//Mostra o diálogo de seleção do local de gravação
+		    		String arquivo = selecionarArquivoParaCarregar();
+		    		//Se o arquivo veio nulo, usuário cancelou a seleção do arquivo
+		    		if (arquivo == null)
+		    			return;		    		
+		    		
+		    		//Passa o local do arquivo para o tradutor descarregar o dicionário
+		    		tradutor.salvaDicionario(arquivo);
 		    		Dialogos.mostrarMensagem(formulario, "Arquivo salvo com sucesso!");
 				} 
 		    	//Se aconteceu um erro ao salvar o arquivo
