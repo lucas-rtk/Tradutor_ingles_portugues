@@ -131,7 +131,7 @@ public class MainForm extends BaseForm {
 		    {
 		    	try {
 		    		//Mostra o diálogo de seleção do local de gravação
-		    		String arquivo = selecionarArquivoParaCarregar();
+		    		String arquivo = selecionarArquivoParaSalvar();
 		    		//Se o arquivo veio nulo, usuário cancelou a seleção do arquivo
 		    		if (arquivo == null)
 		    			return;		    		
